@@ -1,0 +1,6 @@
+# Ignorar todo lo de Intellij
+# Para subir los archivos en crudo al git
+
+practica2/practica2_757024/java/out
+*.iml
+practica2/practica2_757024/java/.idea
