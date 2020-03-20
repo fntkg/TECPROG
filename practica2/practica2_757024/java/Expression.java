@@ -62,6 +62,7 @@ class Expression
 				stk.push(t);
 
 				// Para pintar la operación
+                // Para resolver la operacion
                 if (!esOperador(t1.valor) && !esOperador(t2.valor)){
                     vez++;
                     if (vez == 2){alreadyToken = true;}
@@ -125,20 +126,6 @@ class Expression
                 // Variable o constante
                 t = new Nodo(tok);
                 stk.push(t);
-                // Si comienza por un caracter no numerico,
-                // es un nombre de variable
-                /*if (Character.isLetter(tok.charAt(0)))
-                {
-                    // Apilar variable
-					t = new Nodo(tok);
-					stk.push(t);
-                }
-                else
-                {
-                    float v = Float.valueOf(tok).floatValue();
-                    // Apilar constante
-
-                }*/
             }
         }
         root = stk.peek(); // cima de la pila
@@ -149,7 +136,8 @@ class Expression
     public String eval(SymbolTab syms)
     {
         // Devuelve el resultado de evaluar la expresion
-        return recorrer(root, "");
+        //Recorrer arbol en profundidad
+        return String.valueOf(evaluar(root, syms));
     }
 
     @Override
@@ -159,41 +147,41 @@ class Expression
         return op;
     }
 
-    private String recorrer(Nodo node, String op){
-        if (node != null){
-            recorrer(node.izd, op);
-            op = op.concat(node.valor);
-            op = op.concat(" ");
-            //System.out.println("Op: " + op);
-            //System.out.print(op);
-            recorrer(node.dcha, op);
-        }
-        //System.out.print(op);
-        return op;
-    }
+    private float evaluar(Nodo node, SymbolTab syms){
+            if (!esOperador(node.valor)){
+                // OJO con las variables
+                float b;
+                if (Character.isLetter(node.valor.charAt(0)))
+                {
+                    b = syms.get(node.valor);
+                }
+                else
+                {
+                    b = Float.valueOf(node.valor).floatValue();
+                }
+                return b;
+            }else{
+                float a = evaluar(node.izd, syms);
+                float b = evaluar(node.dcha, syms);
 
-    private float evaluar(Nodo node, float result){
-        if(node != null){
-            evaluar(node.izd, result);
-            //Calcular valor numerico del string en cuestion
-
-
-
-            evaluar(node.dcha, result);
-            return result;
-        }
-        else{
-            return result;
-        }
+                return calcular(a,b,node.valor);
+            }
     }
 
     private boolean esOperador(String tok){
-        if (tok.equals("+") || tok.equals("-") || tok.equals("*") || tok.equals("/")){
-            return true;
-        }
-        else{
-            return false;
+        return tok.equals("+") || tok.equals("-") || tok.equals("*") || tok.equals("/");
+    }
+
+    private float calcular(float a, float b, String operador){
+        switch (operador) {
+            case "+":
+                return a + b;
+            case "-":
+                return a - b;
+            case "*":
+                return a * b;
+            default:  //Division
+                return a / b;
         }
     }
 };
-
