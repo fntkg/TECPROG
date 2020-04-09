@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
-
-public interface Generico {
+public interface Generico extends ProductoEspecial {
 }

@@ -1,4 +1,10 @@
-package PACKAGE_NAME;
+public class Toxico extends Especial {
+    public Toxico(double volumen, double peso, String nombre) {
+        super(volumen, peso, nombre);
+    }
 
-public class Toxico {
+    @Override
+    public String productType() {
+        return "Toxico";
+    }
 }

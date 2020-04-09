@@ -1,4 +1,10 @@
-package PACKAGE_NAME;
+public class SerVivo extends Especial {
+    public SerVivo(double volumen, double peso, String nombre) {
+        super(volumen, peso, nombre);
+    }
 
-public class SerVivo {
+    @Override
+    public String productType() {
+        return "SerVivo";
+    }
 }
