@@ -42,10 +42,10 @@ class Main
 				{
 					ruta.cd(argv[1]);
 				}
-				/*else if (argv[0].equals("stat"))
+				else if (argv[0].equals("stat"))
 				{
 					System.out.println(ruta.stat(argv[1]));
-				}*/
+				}
 				else if (argv[0].equals("vi"))
 				{
 					ruta.vi(argv[1], Integer.parseInt(argv[2]));
@@ -54,14 +54,14 @@ class Main
 				{
 					ruta.mkdir(argv[1]);
 				}
-				/*else if (argv[0].equals("ln"))
+				else if (argv[0].equals("ln"))
 				{
 					ruta.ln(argv[1],argv[2]);
 				}
 				else if (argv[0].equals("rm"))
 				{
 					ruta.rm(argv[1]);
-				}*/
+				}
 				else if (argv[0].equals("exit"))
 				{
 					end = true;

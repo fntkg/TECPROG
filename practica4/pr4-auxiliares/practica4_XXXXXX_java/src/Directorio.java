@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Directorio extends Nodo {
-    private List<Nodo> contenido;
+public class Directorio extends Enlace {
+    private List<Enlace> contenido;
 
     public Directorio(String name) {
         super(name, 0);
@@ -13,15 +13,27 @@ public class Directorio extends Nodo {
     }
 
     @Override
-    public List<Nodo> getContenido() {
+    public List<Enlace> getContenido() {
         return contenido;
     }
 
     @Override
-    public boolean addContenido(Nodo nodo) throws ExcepcionArbolFicheros {
+    public boolean addContenido(Enlace nodo) throws ExcepcionArbolFicheros {
         contenido.add(nodo);
-        //Todo actualizar tamaño
         super.setSize(super.getSize()+nodo.getSize());
+        return true;
+    }
+
+    @Override
+    public boolean addContenido(Integer a) throws ExcepcionArbolFicheros {
+        if (a < 0){ throw new ExcepcionArbolFicheros(); }
+        super.setSize(super.getSize()+a);
+        return true;
+    }
+
+    @Override
+    public boolean sustractSize(Integer a) throws ExcepcionArbolFicheros {
+        super.setSize(super.getSize()-a);
         return true;
     }
 }
